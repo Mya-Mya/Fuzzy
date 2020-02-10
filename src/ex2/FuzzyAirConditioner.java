@@ -74,6 +74,7 @@ public class FuzzyAirConditioner extends JFrame implements ChangeListener {
         sTemp.addChangeListener(this);
         add(sTemp,BorderLayout.SOUTH);
 
+        setCurrentTemp(sTemp.getValue());
         pack();
         setVisible(true);
     }
@@ -95,16 +96,23 @@ public class FuzzyAirConditioner extends JFrame implements ChangeListener {
         }
 
         tCurrentTemp.setText("現在の気温: "+Double.toString(t)+" ℃");
-        String consequentText=String.format("%.2f",consequent);
-        double roundConsequent=Double.parseDouble(consequentText);
+        double roundConsequent=Double.parseDouble(String.format("%.2f",consequent));
+        StringBuilder consequentText=new StringBuilder();
+        consequentText.append("空調設定 : ");
         if(roundConsequent==0){
             tAirConditionerSetting.setForeground(Color.BLACK);
+            consequentText.append("OFF");
         }else if(roundConsequent<0){
             tAirConditionerSetting.setForeground(Color.BLUE);
+            consequentText.append(roundConsequent);
+            consequentText.append(" ℃");
         }else{
             tAirConditionerSetting.setForeground(Color.RED);
+            consequentText.append("+");
+            consequentText.append(roundConsequent);
+            consequentText.append(" ℃");
         }
-        tAirConditionerSetting.setText(consequentText);
+        tAirConditionerSetting.setText(consequentText.toString());
     }
 
     @Override
