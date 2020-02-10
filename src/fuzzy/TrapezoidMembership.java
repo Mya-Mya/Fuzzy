@@ -39,7 +39,7 @@ public class TrapezoidMembership extends Membership{
 
     @Override
     protected double getValue(double value) {
-        if(value<=leftBottom||rightBottom<=value)return 0;
+        if(value<leftBottom||rightBottom<value)return 0;
         if(leftTop<=value&&value<=rightTop)return 1;
         if(value<leftTop){
             // value ∈ (leftBottom, leftTop)
