@@ -70,11 +70,11 @@ public class FuzzyAirConditioner extends JFrame implements ChangeListener {
         tAirConditionerSetting=new JLabel();
         tAirConditionerSetting.setFont(new Font("メイリオ",Font.BOLD,30));
         add(tAirConditionerSetting,BorderLayout.CENTER);
-        sTemp=new JSlider(0,40,10);
+        sTemp=new JSlider(0,400,10);
         sTemp.addChangeListener(this);
         add(sTemp,BorderLayout.SOUTH);
 
-        setCurrentTemp(sTemp.getValue());
+        setCurrentTemp(sTemp.getValue()/10);
         pack();
         setVisible(true);
     }
@@ -117,6 +117,6 @@ public class FuzzyAirConditioner extends JFrame implements ChangeListener {
 
     @Override
     public void stateChanged(ChangeEvent changeEvent) {
-        setCurrentTemp(sTemp.getValue());
+        setCurrentTemp((double)sTemp.getValue()/10.0);
     }
 }
