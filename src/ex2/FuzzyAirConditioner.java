@@ -34,7 +34,7 @@ public class FuzzyAirConditioner extends JFrame implements ChangeListener {
         x1=new InputValue(10);
         x1.setDescription("今の気温");
 
-        Membership A1=new TriangleMambership(22,30,40);
+        Membership A1=new TriangleMambership(22,30,43);
         A1.setDescription("暑い");
         Membership B1=new TriangleMambership(-7,-5,-3);
         B1.setDescription("冷房にする");
