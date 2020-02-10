@@ -52,7 +52,7 @@ public class MainPanel extends JPanel implements ActionListener, MouseListener, 
         Rx1.addAntecedentPart(new AntecedentPart(dx1,Ax1));
         Rx1.addAntecedentPart(ifd1isAd);
 
-        Membership Ax2=new TriangleMambership(-60,5,0);
+        Membership Ax2=new TriangleMambership(-60,-5,0);
         Ax2.setDescription("すぐ左に毒がある");
         Membership Bx2=new TriangleMambership(10,20,30);
         Bx2.setDescription("右に急いで移動する");
@@ -101,7 +101,7 @@ public class MainPanel extends JPanel implements ActionListener, MouseListener, 
         Ry1.addAntecedentPart(new AntecedentPart(dy1,Ay1));
         Ry1.addAntecedentPart(ifd1isAd);
 
-        Membership Ay2=new TriangleMambership(-60,5,0);
+        Membership Ay2=new TriangleMambership(-60,-5,0);
         Ay2.setDescription("すぐ上に毒がある");
         Membership By2=new TriangleMambership(10,20,30);
         By2.setDescription("下に急いで移動する");
@@ -144,7 +144,7 @@ public class MainPanel extends JPanel implements ActionListener, MouseListener, 
         g.fillRect(0,0,getWidth(),getHeight());
 
         g.setColor(Color.red);
-        g.fillRect(poisonPosition.x-7,poisonPosition.y-7,14,14);
+        g.fillRect(poisonPosition.x-9,poisonPosition.y-9,18,18);
 
         g.setColor(Color.green);
         g.fillRect(mousePosition.x-7,mousePosition.y-7,14,14);
