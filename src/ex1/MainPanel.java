@@ -8,6 +8,7 @@ import java.awt.event.*;
 import java.lang.reflect.Member;
 import java.util.ArrayList;
 
+@Deprecated
 public class MainPanel extends JPanel implements ActionListener, MouseListener {
     private Timer timer;
     private Point agentPosition=new Point(100,100);

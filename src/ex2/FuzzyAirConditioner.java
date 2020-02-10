@@ -2,12 +2,27 @@ package ex2;
 
 import fuzzy.*;
 
+import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class FuzzyAirConditioner {
+public class FuzzyAirConditioner extends JFrame implements ChangeListener {
+
+    private FuzzyInterface1 R;
+    private InputValue x1;
+
+    private JLabel tCurrentTemp;
+    private JLabel tAirConditionerSetting;
+    private JSlider sTemp;
+
     public FuzzyAirConditioner(){
+        super("FuzzyAirConditioner");
+        setPreferredSize(new Dimension(500,200));
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         /**
          * R: 空調の温度設定 y∈[-6,6] を論議するにおいて
          * R1: 今の気温 x1 が A1: 暑かったら B1: 冷房にする
@@ -16,7 +31,7 @@ public class FuzzyAirConditioner {
          * ただし x1∈(0,40)
          */
 
-        InputValue x1=new InputValue(10);
+        x1=new InputValue(10);
         x1.setDescription("今の気温");
 
         Membership A1=new TriangleMambership(22,30,40);
@@ -44,32 +59,56 @@ public class FuzzyAirConditioner {
         for(double y=-6;y<=6;y+=0.2){
             outputRange.add(y);
         }
-        FuzzyInterface1 R=new FuzzyInterface1(outputRange);
+        R=new FuzzyInterface1(outputRange);
         R.addRule(R1);
         R.addRule(R2);
         R.addRule(R3);
         System.out.println(R.toString());
 
-        double t=10;
-        while(t!=-10){
-            System.out.println("温度は？");
-            String input=new Scanner(System.in).nextLine();
-            t=Double.parseDouble(input);
-            x1.setValue(t);
+        tCurrentTemp=new JLabel();
+        add(tCurrentTemp,BorderLayout.NORTH);
+        tAirConditionerSetting=new JLabel();
+        tAirConditionerSetting.setFont(new Font("メイリオ",Font.BOLD,30));
+        add(tAirConditionerSetting,BorderLayout.CENTER);
+        sTemp=new JSlider(0,40,10);
+        sTemp.addChangeListener(this);
+        add(sTemp,BorderLayout.SOUTH);
 
-            try {
-                R.inputValueChanged();
-            } catch (Rule1a.NoAntecedentPartListException e) {
-                e.printStackTrace();
-            }
-            try {
-                double consequent = R.getConsequent();
-                System.out.println(consequent);
-            } catch (FuzzyInterface1.NoRuleException e) {
-                e.printStackTrace();
-            } catch (Rule1a.NoAntecedentPartListException e) {
-                e.printStackTrace();
-            }
+        pack();
+        setVisible(true);
+    }
+
+    private void setCurrentTemp(double t){
+        x1.setValue(t);
+        double consequent=0;
+        try {
+            R.inputValueChanged();
+        } catch (Rule1a.NoAntecedentPartListException e) {
+            e.printStackTrace();
         }
+        try {
+            consequent = R.getConsequent();
+        } catch (FuzzyInterface1.NoRuleException e) {
+            e.printStackTrace();
+        } catch (Rule1a.NoAntecedentPartListException e) {
+            e.printStackTrace();
+        }
+
+        tCurrentTemp.setText("現在の気温: "+Double.toString(t)+" ℃");
+        String consequentText=String.format("%.2f",consequent);
+        double roundConsequent=Double.parseDouble(consequentText);
+        if(roundConsequent==0){
+            tAirConditionerSetting.setForeground(Color.BLACK);
+        }else if(roundConsequent<0){
+            tAirConditionerSetting.setForeground(Color.BLUE);
+        }else{
+            tAirConditionerSetting.setForeground(Color.RED);
+        }
+        tAirConditionerSetting.setText(consequentText);
+    }
+
+    @Override
+    public void stateChanged(ChangeEvent changeEvent) {
+        setCurrentTemp(sTemp.getValue());
     }
 }
