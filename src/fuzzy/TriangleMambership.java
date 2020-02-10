@@ -35,13 +35,12 @@ public class TriangleMambership extends Membership{
     }
     @Override
     protected double getValue(double value) {
-        if(value<=leftBase)return 0;
-        if(rightBase<=value)return 0;
+        if(value<leftBase||rightBase<value)return 0;
         if(value<center){
-            // value ∈ (左端の麓, 中央)
+            // value ∈ [左端の麓, 中央)
             return leftToCenterTilt*value+leftToCenterPiece;
         }
-        // value ∈ [中央, 右端の麓)
+        // value ∈ [中央, 右端の麓]
         return centerToRightTilt*value+centerToRightPiece;
     }
 }

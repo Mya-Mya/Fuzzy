@@ -2,6 +2,8 @@ package fuzzy;
 
 /**
  * 台形のメンバーシップ関数を表す。
+ * rightTop = rightBottom の場合、rightTop = rightBottom -> 1 となる。
+ * leftTop = leftBottom の場合、 leftTop = leftBottom -> 1 となる。
  */
 public class TrapezoidMembership extends Membership{
     private double leftBottom;
