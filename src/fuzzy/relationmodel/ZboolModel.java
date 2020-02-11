@@ -8,7 +8,7 @@ import fuzzy.Rule;
  * μR(x+,y) = (ω ∧ μB(y)) ∨ (1-ω)
  */
 public class ZboolModel extends RelationModel{
-    public ZboolModel(double allAntecedentPartGoodness, FuzzySet consequentFuzzySet) {
+    public ZboolModel() {
     }
 
     private double oneMinusAllAntecedentPartGoodness;
@@ -20,7 +20,7 @@ public class ZboolModel extends RelationModel{
     }
 
     @Override
-    public double getConsequentValue(double y) throws Rule.NoAntecedentPartListException, FuzzySet.MembershipFunctionIllegalOutputException {
+    public double getConsequentValue(double y) throws Rule.NoAntecedentPartListException {
         return Math.max(Math.min(allAntecedentPartGoodness,consequentFuzzySet.invokeMembershipFunction(y)),oneMinusAllAntecedentPartGoodness);
     }
 }

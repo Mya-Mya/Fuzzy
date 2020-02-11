@@ -1,6 +1,10 @@
 package ex2;
 
 import fuzzy.*;
+import fuzzy.relationmodel.MamdamiModel;
+import fuzzy.relationmodel.RelationModel;
+import fuzzy.relationmodel.RescherModel;
+import fuzzy.relationmodel.ZboolModel;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -33,32 +37,29 @@ public class FuzzyAirConditioner extends JFrame implements ChangeListener {
         x1=new InputValue(10);
         x1.setDescription("今の気温");
 
-        FuzzySet A1=new TriangleFuzzySet(22,30,43);
-        A1.setDescription("暑い");
-        FuzzySet B1=new TriangleFuzzySet(-7,-5,-3);
-        B1.setDescription("冷房にする");
-        Rule R1=new Rule(B1);
+        FuzzySet.Range X=new FuzzySet.Range(0,40);
+        FuzzySet.Range Y=new FuzzySet.Range(-6,6);
+
+        FuzzySet A1=new TrapezoidFuzzySet(X,"暑い",24,30,40,40);
+        FuzzySet B1=new TriangleFuzzySet(Y,"冷房にする",-7,-5,-2);
+        Rule R1=new Rule(B1,new MamdamiModel());
         R1.addAntecedentPart(new AntecedentPart(x1,A1));
 
-        FuzzySet A2=new TrapezoidFuzzySet(12,22,25,35);
-        A2.setDescription("ちょうどよい");
-        FuzzySet B2=new TriangleFuzzySet(-3,0,3);
-        B2.setDescription("だいたい何も変えない");
-        Rule R2=new Rule(B2);
+        FuzzySet A2=new TrapezoidFuzzySet(X,"ちょうどよい",12,22,25,35);
+        FuzzySet B2=new TriangleFuzzySet(Y,"だいたい何も変えない",-3,0,3);
+        Rule R2=new Rule(B2,new MamdamiModel());
         R2.addAntecedentPart(new AntecedentPart(x1,A2));
 
-        FuzzySet A3=new TrapezoidFuzzySet(0,0,9,18);
-        A3.setDescription("寒い");
-        FuzzySet B3=new TriangleFuzzySet(4,8,10);
-        B3.setDescription("暖房にする");
-        Rule R3=new Rule(B3);
+        FuzzySet A3=new TrapezoidFuzzySet(X,"寒い",0,0,9,18);
+        FuzzySet B3=new TriangleFuzzySet(Y,"暖房にする",2,5,7);
+        Rule R3=new Rule(B3,new MamdamiModel());
         R3.addAntecedentPart(new AntecedentPart(x1,A3));
 
-        List<Double>outputRange=new ArrayList<>();
+        List<Double>yList=new ArrayList<>();
         for(double y=-6;y<=6;y+=0.2){
-            outputRange.add(y);
+            yList.add(y);
         }
-        R=new FuzzyInterface1(outputRange);
+        R=new FuzzyInterface1(yList,FuzzyInterface1.RULES_SUM_COMBINATION);
         R.addRule(R1);
         R.addRule(R2);
         R.addRule(R3);

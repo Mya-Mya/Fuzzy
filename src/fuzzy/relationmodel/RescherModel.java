@@ -9,11 +9,11 @@ import fuzzy.Rule;
  *            0 if ω ＜μB(y)
  */
 public class RescherModel extends RelationModel{
-    public RescherModel(double allAntecedentPartGoodness, FuzzySet consequentFuzzySet) {
+    public RescherModel() {
     }
 
     @Override
-    public double getConsequentValue(double y) throws Rule.NoAntecedentPartListException, FuzzySet.MembershipFunctionIllegalOutputException {
+    public double getConsequentValue(double y) throws Rule.NoAntecedentPartListException {
         if(allAntecedentPartGoodness<=consequentFuzzySet.invokeMembershipFunction(y))return 1;
         return 0;
     }

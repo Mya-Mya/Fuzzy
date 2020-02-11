@@ -7,7 +7,7 @@ abstract public class FuzzySet {
     /**
      * メンバーシップ関数の値域 X を表す。X = [min,max] の開区間である。
      */
-    public class Range{
+    public static class Range{
         public final double min;
         public final double max;
         public Range(double min,double max){
@@ -18,7 +18,6 @@ abstract public class FuzzySet {
             return min<=x&&x<=max;
         }
     }
-    public class MembershipFunctionIllegalOutputException extends Exception{}
 
     protected Range range;
     private String description;
@@ -30,10 +29,17 @@ abstract public class FuzzySet {
         setDescription(description);
     }
 
-    public double invokeMembershipFunction(double x) throws MembershipFunctionIllegalOutputException {
+    public double invokeMembershipFunction(double x){
         if(!range.isIn(x))throw new IllegalArgumentException();
         double res=membershipFunction(x);
-        if(0<res||1<res)throw new MembershipFunctionIllegalOutputException();
+        if(res<0){
+            System.err.println("FuzzySet "+description+" : membershipFunction("+x+")の値が不正です。");
+            return 0;
+        }
+        if(1<res){
+            System.err.println("FuzzySet "+description+" : membershipFunction("+x+")の値が不正です。");
+            return 1;
+        }
         return res;
     }
 

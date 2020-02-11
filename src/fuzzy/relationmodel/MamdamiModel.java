@@ -9,11 +9,11 @@ import fuzzy.Rule;
  */
 public class MamdamiModel extends RelationModel{
 
-    public MamdamiModel(double allAntecedentPartGoodness, FuzzySet consequentFuzzySet) {
+    public MamdamiModel() {
     }
 
     @Override
-    public double getConsequentValue(double y) throws Rule.NoAntecedentPartListException, FuzzySet.MembershipFunctionIllegalOutputException {
+    public double getConsequentValue(double y) throws Rule.NoAntecedentPartListException {
         return Math.min(allAntecedentPartGoodness,consequentFuzzySet.invokeMembershipFunction(y));
     }
 }

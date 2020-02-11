@@ -58,7 +58,7 @@ public class Rule {
      * @param y∈Y
      * @return 推論結果
      */
-    public double getConsequentValue(double y) throws NoAntecedentPartListException, FuzzySet.MembershipFunctionIllegalOutputException {
+    public double getConsequentValue(double y) throws NoAntecedentPartListException {
         return relationModel.getConsequentValue(y);
     }
 

@@ -16,12 +16,7 @@ public class AntecedentPart {
      * @return 適合度 μ(x+)
      */
     public double getGoodness(){
-        try {
-            return fuzzySet.invokeMembershipFunction(inputValue.getValue());
-        } catch (FuzzySet.MembershipFunctionIllegalOutputException e) {
-            e.printStackTrace();
-        }
-        return 0;
+        return fuzzySet.invokeMembershipFunction(inputValue.getValue());
     }
 
     @Override
