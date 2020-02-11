@@ -1,4 +1,4 @@
-package fuzzy;
+package fuzzy.set;
 
 /**
  * ファジィ集合のスーパークラス。

@@ -1,6 +1,6 @@
 package fuzzy.relationmodel;
 
-import fuzzy.FuzzySet;
+import fuzzy.set.FuzzySet;
 import fuzzy.Rule;
 
 /**

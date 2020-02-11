@@ -1,6 +1,7 @@
 package fuzzy;
 
 import fuzzy.relationmodel.RelationModel;
+import fuzzy.set.FuzzySet;
 
 import java.util.ArrayList;
 import java.util.Comparator;

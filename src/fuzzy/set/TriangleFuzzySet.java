@@ -1,4 +1,4 @@
-package fuzzy;
+package fuzzy.set;
 
 /**
  * メンバーシップ関数が三角形のファジィ集合を表す。

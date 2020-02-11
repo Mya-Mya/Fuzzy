@@ -2,9 +2,9 @@ package ex2;
 
 import fuzzy.*;
 import fuzzy.relationmodel.MamdamiModel;
-import fuzzy.relationmodel.RelationModel;
-import fuzzy.relationmodel.RescherModel;
-import fuzzy.relationmodel.ZboolModel;
+import fuzzy.set.FuzzySet;
+import fuzzy.set.TrapezoidFuzzySet;
+import fuzzy.set.TriangleFuzzySet;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
