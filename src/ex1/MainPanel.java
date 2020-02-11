@@ -5,7 +5,6 @@ import fuzzy.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.lang.reflect.Member;
 import java.util.ArrayList;
 
 public class MainPanel extends JPanel implements ActionListener, MouseListener, MouseMotionListener {
@@ -30,7 +29,7 @@ public class MainPanel extends JPanel implements ActionListener, MouseListener, 
         setFocusable(true);
 
         d1.setDescription("エージェントと毒との距離");
-        Membership Ad=new TriangleMambership(-80,0,80);
+        FuzzySet Ad=new TriangleFuzzySet(-80,0,80);
         Ad.setDescription("近くに毒がある");
         AntecedentPart ifd1isAd=new AntecedentPart(d1,Ad);
         System.out.println(ifd1isAd.toString());
@@ -44,34 +43,34 @@ public class MainPanel extends JPanel implements ActionListener, MouseListener, 
          */
         dx1.setDescription("エージェントと毒とのx方向の位置関係");
         dx2.setDescription("エージェントとマウスとのx方向の位置関係");
-        Membership Ax1=new TriangleMambership(0,5,60);
+        FuzzySet Ax1=new TriangleFuzzySet(0,5,60);
         Ax1.setDescription("すぐ右に毒がある");
-        Membership Bx1=new TriangleMambership(-30,-20,-10);
+        FuzzySet Bx1=new TriangleFuzzySet(-30,-20,-10);
         Bx1.setDescription("左に急いで移動する");
-        Rule1a Rx1=new Rule1a(Bx1);
+        Rule Rx1=new Rule(Bx1);
         Rx1.addAntecedentPart(new AntecedentPart(dx1,Ax1));
         Rx1.addAntecedentPart(ifd1isAd);
 
-        Membership Ax2=new TriangleMambership(-60,-5,0);
+        FuzzySet Ax2=new TriangleFuzzySet(-60,-5,0);
         Ax2.setDescription("すぐ左に毒がある");
-        Membership Bx2=new TriangleMambership(10,20,30);
+        FuzzySet Bx2=new TriangleFuzzySet(10,20,30);
         Bx2.setDescription("右に急いで移動する");
-        Rule1a Rx2=new Rule1a(Bx2);
+        Rule Rx2=new Rule(Bx2);
         Rx2.addAntecedentPart(new AntecedentPart(dx1,Ax2));
         Rx2.addAntecedentPart(ifd1isAd);
 
-        Membership Ax3=new TriangleMambership(-1,150,300);
+        FuzzySet Ax3=new TriangleFuzzySet(-1,150,300);
         Ax3.setDescription("右にマウスがある");
-        Membership Bx3=new TriangleMambership(4,7,14);
+        FuzzySet Bx3=new TriangleFuzzySet(4,7,14);
         Bx3.setDescription("右に移動する");
-        Rule1a Rx3=new Rule1a(Bx3);
+        Rule Rx3=new Rule(Bx3);
         Rx3.addAntecedentPart(new AntecedentPart(dx2,Ax3));
 
-        Membership Ax4=new TriangleMambership(-300,-150,1);
+        FuzzySet Ax4=new TriangleFuzzySet(-300,-150,1);
         Ax4.setDescription("左にマウスがある");
-        Membership Bx4=new TriangleMambership(-14,-7,4);
+        FuzzySet Bx4=new TriangleFuzzySet(-14,-7,4);
         Bx4.setDescription("左に移動する");
-        Rule1a Rx4=new Rule1a(Bx4);
+        Rule Rx4=new Rule(Bx4);
         Rx4.addAntecedentPart(new AntecedentPart(dx2,Ax4));
 
         java.util.List<Double>X=new ArrayList<>();
@@ -93,34 +92,34 @@ public class MainPanel extends JPanel implements ActionListener, MouseListener, 
         dy1.setDescription("エージェントと毒とのy方向の位置関係");
         dy2.setDescription("エージェントとマウスとのy方向の位置関係");
 
-        Membership Ay1=new TriangleMambership(0,5,60);
+        FuzzySet Ay1=new TriangleFuzzySet(0,5,60);
         Ay1.setDescription("すぐ下に毒がある");
-        Membership By1=new TriangleMambership(-30,-20,-10);
+        FuzzySet By1=new TriangleFuzzySet(-30,-20,-10);
         By1.setDescription("上に急いで移動する");
-        Rule1a Ry1=new Rule1a(By1);
+        Rule Ry1=new Rule(By1);
         Ry1.addAntecedentPart(new AntecedentPart(dy1,Ay1));
         Ry1.addAntecedentPart(ifd1isAd);
 
-        Membership Ay2=new TriangleMambership(-60,-5,0);
+        FuzzySet Ay2=new TriangleFuzzySet(-60,-5,0);
         Ay2.setDescription("すぐ上に毒がある");
-        Membership By2=new TriangleMambership(10,20,30);
+        FuzzySet By2=new TriangleFuzzySet(10,20,30);
         By2.setDescription("下に急いで移動する");
-        Rule1a Ry2=new Rule1a(By2);
+        Rule Ry2=new Rule(By2);
         Ry2.addAntecedentPart(new AntecedentPart(dy1,Ay2));
         Ry2.addAntecedentPart(ifd1isAd);
 
-        Membership Ay3=new TriangleMambership(-1,150,300);
+        FuzzySet Ay3=new TriangleFuzzySet(-1,150,300);
         Ay3.setDescription("下にマウスがある");
-        Membership By3=new TriangleMambership(4,7,14);
+        FuzzySet By3=new TriangleFuzzySet(4,7,14);
         By3.setDescription("下に移動する");
-        Rule1a Ry3=new Rule1a(By3);
+        Rule Ry3=new Rule(By3);
         Ry3.addAntecedentPart(new AntecedentPart(dy2,Ay3));
 
-        Membership Ay4=new TriangleMambership(-300,-150,1);
+        FuzzySet Ay4=new TriangleFuzzySet(-300,-150,1);
         Ay4.setDescription("上にマウスがある");
-        Membership By4=new TriangleMambership(-14,-7,4);
+        FuzzySet By4=new TriangleFuzzySet(-14,-7,4);
         By4.setDescription("上に移動する");
-        Rule1a Ry4=new Rule1a(By4);
+        Rule Ry4=new Rule(By4);
         Ry4.addAntecedentPart(new AntecedentPart(dy2,Ay4));
 
         java.util.List<Double>Y=new ArrayList<>();
@@ -167,7 +166,7 @@ public class MainPanel extends JPanel implements ActionListener, MouseListener, 
             try {
                 Rx.inputValueChanged();
                 Ry.inputValueChanged();
-            } catch (Rule1a.NoAntecedentPartListException e) {
+            } catch (Rule.NoAntecedentPartListException e) {
                 e.printStackTrace();
             }
 
@@ -177,7 +176,7 @@ public class MainPanel extends JPanel implements ActionListener, MouseListener, 
                 agentPosition.y+=Math.ceil(Ry.getConsequent());
             } catch (FuzzyInterface1.NoRuleException e) {
                 e.printStackTrace();
-            } catch (Rule1a.NoAntecedentPartListException e) {
+            } catch (Rule.NoAntecedentPartListException e) {
                 e.printStackTrace();
             }
 

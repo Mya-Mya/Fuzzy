@@ -8,7 +8,6 @@ import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class FuzzyAirConditioner extends JFrame implements ChangeListener {
 
@@ -34,25 +33,25 @@ public class FuzzyAirConditioner extends JFrame implements ChangeListener {
         x1=new InputValue(10);
         x1.setDescription("今の気温");
 
-        Membership A1=new TriangleMambership(22,30,43);
+        FuzzySet A1=new TriangleFuzzySet(22,30,43);
         A1.setDescription("暑い");
-        Membership B1=new TriangleMambership(-7,-5,-3);
+        FuzzySet B1=new TriangleFuzzySet(-7,-5,-3);
         B1.setDescription("冷房にする");
-        Rule1a R1=new Rule1a(B1);
+        Rule R1=new Rule(B1);
         R1.addAntecedentPart(new AntecedentPart(x1,A1));
 
-        Membership A2=new TrapezoidMembership(12,22,25,35);
+        FuzzySet A2=new TrapezoidFuzzySet(12,22,25,35);
         A2.setDescription("ちょうどよい");
-        Membership B2=new TriangleMambership(-3,0,3);
+        FuzzySet B2=new TriangleFuzzySet(-3,0,3);
         B2.setDescription("だいたい何も変えない");
-        Rule1a R2=new Rule1a(B2);
+        Rule R2=new Rule(B2);
         R2.addAntecedentPart(new AntecedentPart(x1,A2));
 
-        Membership A3=new TrapezoidMembership(0,0,9,18);
+        FuzzySet A3=new TrapezoidFuzzySet(0,0,9,18);
         A3.setDescription("寒い");
-        Membership B3=new TriangleMambership(4,8,10);
+        FuzzySet B3=new TriangleFuzzySet(4,8,10);
         B3.setDescription("暖房にする");
-        Rule1a R3=new Rule1a(B3);
+        Rule R3=new Rule(B3);
         R3.addAntecedentPart(new AntecedentPart(x1,A3));
 
         List<Double>outputRange=new ArrayList<>();
@@ -84,14 +83,14 @@ public class FuzzyAirConditioner extends JFrame implements ChangeListener {
         double consequent=0;
         try {
             R.inputValueChanged();
-        } catch (Rule1a.NoAntecedentPartListException e) {
+        } catch (Rule.NoAntecedentPartListException e) {
             e.printStackTrace();
         }
         try {
             consequent = R.getConsequent();
         } catch (FuzzyInterface1.NoRuleException e) {
             e.printStackTrace();
-        } catch (Rule1a.NoAntecedentPartListException e) {
+        } catch (Rule.NoAntecedentPartListException e) {
             e.printStackTrace();
         }
 

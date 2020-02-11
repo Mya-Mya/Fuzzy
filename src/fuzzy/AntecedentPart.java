@@ -1,26 +1,31 @@
 package fuzzy;
 
 /**
- * 1つの前件部を表す。1つの入力値への参照と1つのメンバーシップ関数から成り立つ。
+ * 1つの前件部を表す。1つの入力値への参照 x と1つのファジィ集合 A から成り立つ。
  */
 public class AntecedentPart {
     private InputValue inputValue;
-    private Membership membership;
-    public AntecedentPart(InputValue inputValue, Membership membership){
+    private FuzzySet fuzzySet;
+    public AntecedentPart(InputValue inputValue, FuzzySet fuzzySet){
         this.inputValue=inputValue;
-        this.membership=membership;
+        this.fuzzySet = fuzzySet;
     }
 
     /**
-     * 現在の入力値に応じた適合度 A:X->[0,1] を返す。
-     * @return 適合度A(x)
+     * 現在の入力値に応じた適合度を返す。
+     * @return 適合度 μ(x+)
      */
     public double getGoodness(){
-        return membership.getValue(inputValue.getValue());
+        try {
+            return fuzzySet.invokeMembershipFunction(inputValue.getValue());
+        } catch (FuzzySet.MembershipFunctionIllegalOutputException e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 
     @Override
     public String toString() {
-        return inputValue.toString()+" is "+membership.toString();
+        return inputValue.toString()+" is "+ fuzzySet.toString();
     }
 }

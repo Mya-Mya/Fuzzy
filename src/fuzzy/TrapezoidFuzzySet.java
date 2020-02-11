@@ -1,11 +1,11 @@
 package fuzzy;
 
 /**
- * 台形のメンバーシップ関数を表す。
+ * メンバーシップ関数が台形のファジィ集合を表す。
  * rightTop = rightBottom の場合、rightTop = rightBottom -> 1 となる。
  * leftTop = leftBottom の場合、 leftTop = leftBottom -> 1 となる。
  */
-public class TrapezoidMembership extends Membership{
+public class TrapezoidFuzzySet extends FuzzySet {
     private double leftBottom;
     private double leftTilt=0;
     private double leftPiece=0;
@@ -15,7 +15,12 @@ public class TrapezoidMembership extends Membership{
     private double rightPiece=0;
     private double rightBottom;
 
-    public TrapezoidMembership(double leftBottom,double leftTop,double rightTop,double rightBottom){
+    public TrapezoidFuzzySet(Range range,double leftBottom, double leftTop, double rightTop, double rightBottom){
+        this(range,"",leftBottom,leftTop,rightTop,rightBottom);
+    }
+
+    public TrapezoidFuzzySet(Range range,String description,double leftBottom, double leftTop, double rightTop, double rightBottom){
+        super(range,description);
         if(rightBottom<rightTop||rightTop<leftTop||leftTop<leftBottom)throw new IllegalArgumentException();
         this.leftBottom=leftBottom;
 
@@ -38,14 +43,14 @@ public class TrapezoidMembership extends Membership{
     }
 
     @Override
-    protected double getValue(double value) {
-        if(value<leftBottom||rightBottom<value)return 0;
-        if(leftTop<=value&&value<=rightTop)return 1;
-        if(value<leftTop){
+    protected double membershipFunction(double x) {
+        if(x <leftBottom||rightBottom< x)return 0;
+        if(leftTop<= x && x <=rightTop)return 1;
+        if(x <leftTop){
             // value ∈ (leftBottom, leftTop)
-            return leftTilt*value+leftPiece;
+            return leftTilt* x +leftPiece;
         }
         // value ∈ (rightTop, rightBottom)
-        return rightTilt*value+rightPiece;
+        return rightTilt* x +rightPiece;
     }
 }

@@ -1,7 +1,7 @@
 package fuzzy;
 
 /**
- * 1つの入力値を表す。
+ * 1つの入力値(スカラー)を表す。
  */
 public class InputValue {
     private double value;

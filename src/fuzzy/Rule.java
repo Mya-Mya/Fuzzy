@@ -1,26 +1,32 @@
 package fuzzy;
 
+import fuzzy.relationmodel.RelationModel;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
 /**
- * ファジィ推論法1aに基づく1つのファジィ制御則を表す。
- * 1つ以上の前件部と1つの後件部から成り立つ。
+ * 1つ以上の前件部と1つの後件部から成り立つファジィ制御則を表す。
+ * 前件部同士は ∧ 結合される。
  */
-public class Rule1a {
+public class Rule {
     public class NoAntecedentPartListException extends Exception{}
+
     double allAntecedentPartGoodness;
     private List<AntecedentPart> antecedentPartList=new ArrayList<>();
-    private Membership consequentMembership;
+    private FuzzySet consequentFuzzySet;
+    private RelationModel relationModel;
 
     /**
-     *
-     * @param consequentMembership 後件部のメンバーシップ関数B(y)
+     * @param consequentFuzzySet 後件部のファジィ集合B
+     * @param relationModel 前件部と後件部とのファジィ関係モデル
      */
-    public Rule1a(Membership consequentMembership){
-        this.consequentMembership=consequentMembership;
+    public Rule(FuzzySet consequentFuzzySet, RelationModel relationModel){
+        this.consequentFuzzySet = consequentFuzzySet;
+        this.relationModel=relationModel;
+        relationModel.setConsequentFuzzySet(consequentFuzzySet);
     }
     public void addAntecedentPart(AntecedentPart antecedentPart){
         antecedentPartList.add(antecedentPart);
@@ -35,11 +41,11 @@ public class Rule1a {
                 .min(Comparator.comparing(AntecedentPart::getGoodness))
                 .get()
                 .getGoodness();
+        relationModel.setAllAntecedentPartGoodness(allAntecedentPartGoodness);
     }
 
     /**
      * このファジィ制御則の前件部全体の適合度ωを返す。
-     * このメソッドを呼ぶ前に、updateAllAntecedentPartGoodnessが呼ばれている必要がある。
      * @return 適合度ω
      */
     public double getAllAntecedentPartGoodness(){
@@ -47,13 +53,13 @@ public class Rule1a {
     }
 
     /**
-     * このファジィ制御則の推論結果関数 B0_i:Y->[0,1] の値を返す。
+     * このファジィ制御則の推論結果関数 B+:Y->[0,1] の値を返す。
      * このメソッドを呼ぶ前に、updateAllAntecedentPartGoodnessが呼ばれている必要がある。
      * @param y∈Y
      * @return 推論結果
      */
-    public double getConsequentValue(double y) throws NoAntecedentPartListException {
-        return Math.min(consequentMembership.getValue(y),allAntecedentPartGoodness);
+    public double getConsequentValue(double y) throws NoAntecedentPartListException, FuzzySet.MembershipFunctionIllegalOutputException {
+        return relationModel.getConsequentValue(y);
     }
 
     @Override
@@ -71,7 +77,7 @@ public class Rule1a {
         }
 
         sb.append("THEN ");
-        sb.append(consequentMembership.toString());
+        sb.append(consequentFuzzySet.toString());
         return sb.toString();
     }
 }

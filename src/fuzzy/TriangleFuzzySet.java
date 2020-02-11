@@ -1,9 +1,9 @@
 package fuzzy;
 
 /**
- * 三角形のメンバーシップ関数を表す。
+ * メンバーシップ関数が三角形のファジィ集合を表す。
  */
-public class TriangleMambership extends Membership{
+public class TriangleFuzzySet extends FuzzySet {
     private double leftBase;
     private double leftToCenterTilt=0;//左端の麓～中央の傾き
     private double leftToCenterPiece=0;//左端の麓～中央の切片
@@ -12,12 +12,24 @@ public class TriangleMambership extends Membership{
     private double centerToRightPiece=0;//中央～右端の麓の切片
     private double rightBase;
     /**
-     *
+     * @param range 値域
      * @param leftBase 左端の麓のx座標
      * @param center 頂上のx座標
      * @param rightBase 右端の麓のx座標
      */
-    public TriangleMambership(double leftBase,double center,double rightBase){
+    public TriangleFuzzySet(Range range,double leftBase,double center,double rightBase){
+        this(range,"",leftBase,center,rightBase);
+    }
+    /**
+     * @param range 値域
+     * @param description 説明
+     * @param leftBase 左端の麓のx座標
+     * @param center 頂上のx座標
+     * @param rightBase 右端の麓のx座標
+     */
+    public TriangleFuzzySet(Range range,String description,double leftBase, double center, double rightBase){
+        super(range,description);
+
         this.leftBase=leftBase;
         this.center=center;
         this.rightBase=rightBase;
@@ -34,13 +46,13 @@ public class TriangleMambership extends Membership{
         }
     }
     @Override
-    protected double getValue(double value) {
-        if(value<leftBase||rightBase<value)return 0;
-        if(value<center){
+    protected double membershipFunction(double x) {
+        if(x <leftBase||rightBase< x)return 0;
+        if(x <center){
             // value ∈ [左端の麓, 中央)
-            return leftToCenterTilt*value+leftToCenterPiece;
+            return leftToCenterTilt* x +leftToCenterPiece;
         }
         // value ∈ [中央, 右端の麓]
-        return centerToRightTilt*value+centerToRightPiece;
+        return centerToRightTilt* x +centerToRightPiece;
     }
 }
