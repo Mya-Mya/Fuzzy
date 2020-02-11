@@ -1,6 +1,7 @@
 package ex2;
 
 import fuzzy.*;
+import fuzzy.relationmodel.GodelModel;
 import fuzzy.relationmodel.MamdamiModel;
 import fuzzy.set.FuzzySet;
 import fuzzy.set.TrapezoidFuzzySet;
@@ -31,7 +32,7 @@ public class FuzzyAirConditioner extends JFrame implements ChangeListener {
          * R1: 今の気温 x1 が A1: 暑かったら B1: 冷房にする
          * R2: 今の気温 x1 が A2: ちょうどよかったら B2: だいたい何も変えない
          * R3: 今の気温 x1 が A3: 寒かったら B3: 暖房にする
-         * ただし x1∈(0,40)
+         * ただし x1∈[0,40]
          */
 
         x1=new InputValue(10);
@@ -42,24 +43,24 @@ public class FuzzyAirConditioner extends JFrame implements ChangeListener {
 
         FuzzySet A1=new TrapezoidFuzzySet(X,"暑い",24,30,40,40);
         FuzzySet B1=new TriangleFuzzySet(Y,"冷房にする",-7,-5,-2);
-        Rule R1=new Rule(B1,new MamdamiModel());
+        Rule R1=new Rule(B1,new GodelModel());
         R1.addAntecedentPart(new AntecedentPart(x1,A1));
 
         FuzzySet A2=new TrapezoidFuzzySet(X,"ちょうどよい",12,22,25,35);
         FuzzySet B2=new TriangleFuzzySet(Y,"だいたい何も変えない",-3,0,3);
-        Rule R2=new Rule(B2,new MamdamiModel());
+        Rule R2=new Rule(B2,new GodelModel());
         R2.addAntecedentPart(new AntecedentPart(x1,A2));
 
         FuzzySet A3=new TrapezoidFuzzySet(X,"寒い",0,0,9,18);
         FuzzySet B3=new TriangleFuzzySet(Y,"暖房にする",2,5,7);
-        Rule R3=new Rule(B3,new MamdamiModel());
+        Rule R3=new Rule(B3,new GodelModel());
         R3.addAntecedentPart(new AntecedentPart(x1,A3));
 
         List<Double>yList=new ArrayList<>();
         for(double y=-6;y<=6;y+=0.2){
             yList.add(y);
         }
-        R=new FuzzyInterface1(yList,FuzzyInterface1.RULES_SUM_COMBINATION);
+        R=new FuzzyInterface1(yList,FuzzyInterface1.RULES_MULT_COMBINATION);
         R.addRule(R1);
         R.addRule(R2);
         R.addRule(R3);
