@@ -48,6 +48,7 @@ public class TriangleFuzzySet extends FuzzySet {
     @Override
     protected double membershipFunction(double x) {
         if(x <leftBase||rightBase< x)return 0;
+        if(x==center)return 1;
         if(x <center){
             // value ∈ [左端の麓, 中央)
             return leftToCenterTilt* x +leftToCenterPiece;

@@ -16,7 +16,7 @@ public class Rule {
     public class NoAntecedentPartListException extends Exception{}
 
     double allAntecedentPartGoodness;
-    private List<AntecedentPart> antecedentPartList=new ArrayList<>();
+    private List<AntecedentThesis> antecedentThesisList =new ArrayList<>();
     private FuzzySet consequentFuzzySet;
     private RelationModel relationModel;
 
@@ -25,21 +25,30 @@ public class Rule {
      * @param relationModel 前件部と後件部とのファジィ関係モデル
      */
     public Rule(FuzzySet consequentFuzzySet, RelationModel relationModel){
+        this(null,consequentFuzzySet,relationModel);
+    }
+    /**
+     * @param antecedentThesis 1つの前件部のファジィ命題
+     * @param consequentFuzzySet 後件部のファジィ集合B
+     * @param relationModel 前件部と後件部とのファジィ関係モデル
+     */
+    public Rule(AntecedentThesis antecedentThesis, FuzzySet consequentFuzzySet, RelationModel relationModel){
         this.consequentFuzzySet = consequentFuzzySet;
         this.relationModel=relationModel;
         relationModel.setConsequentFuzzySet(consequentFuzzySet);
+        addAntecedentPart(antecedentThesis);
     }
-    public void addAntecedentPart(AntecedentPart antecedentPart){
-        antecedentPartList.add(antecedentPart);
+    public void addAntecedentPart(AntecedentThesis antecedentThesis){
+        antecedentThesisList.add(antecedentThesis);
     }
 
     /**
      * このファジィ制御則の前件部全体の適合度ωを更新する。
      */
     public void updateAllAntecedentPartGoodness() throws NoAntecedentPartListException {
-        if(antecedentPartList.isEmpty())throw new NoAntecedentPartListException();
-        allAntecedentPartGoodness=antecedentPartList.stream()
-                .min(Comparator.comparing(AntecedentPart::getGoodness))
+        if(antecedentThesisList.isEmpty())throw new NoAntecedentPartListException();
+        allAntecedentPartGoodness= antecedentThesisList.stream()
+                .min(Comparator.comparing(AntecedentThesis::getGoodness))
                 .get()
                 .getGoodness();
         relationModel.setAllAntecedentPartGoodness(allAntecedentPartGoodness);
@@ -67,7 +76,7 @@ public class Rule {
     public String toString() {
         StringBuilder sb=new StringBuilder();
         sb.append("IF");
-        Iterator<AntecedentPart> antecedentPartItr=antecedentPartList.iterator();
+        Iterator<AntecedentThesis> antecedentPartItr= antecedentThesisList.iterator();
         while(antecedentPartItr.hasNext()){
             sb.append(" ");
             sb.append(antecedentPartItr.next().toString());

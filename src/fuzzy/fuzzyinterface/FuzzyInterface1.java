@@ -1,4 +1,6 @@
-package fuzzy;
+package fuzzy.fuzzyinterface;
+
+import fuzzy.Rule;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,8 +40,8 @@ public class FuzzyInterface1 {
             r.updateAllAntecedentPartGoodness();
         }
     }
-    /**
-     * すべてのファジィ制御則の推論結果関数 μB0:Y->[0,1] を返す。
+    /**time
+     * すべてのファジィ制御則の推論結果関数 μB*:Y->[0,1] を返す。
      * @param y∈Y
      * @return 推論結果
      */
