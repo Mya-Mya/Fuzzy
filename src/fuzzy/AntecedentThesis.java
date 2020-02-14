@@ -3,7 +3,7 @@ package fuzzy;
 import fuzzy.set.FuzzySet;
 
 /**
- * 1つの前件部のファジィ命題を表す。1つの入力値への参照 x と1つのファジィ集合 A から成り立つ。
+ * 1つの前件部のファジィ命題 P_ij を表す。1つの入力値への参照 x と1つのファジィ集合 A から成り立つ。
  */
 public class AntecedentThesis {
     private InputValue inputValue;
@@ -15,7 +15,7 @@ public class AntecedentThesis {
 
     /**
      * 現在の入力値に応じた適合度を返す。
-     * @return 適合度 μ(x+)
+     * @return 適合度 μ_A(x*)
      */
     public double getGoodness(){
         return fuzzySet.invokeMembershipFunction(inputValue.getValue());

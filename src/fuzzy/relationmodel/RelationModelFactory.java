@@ -3,7 +3,7 @@ package fuzzy.relationmodel;
 import fuzzy.fuzzyinterface.FuzzyInterface1;
 
 /**
- * 複数のファジィ制御則に対して同じファジィ関係モデルを使いたい場合、ファジィ関係モデルを比較したい時に便利なクラス。
+ * 複数のファジィ制御則 R_i に対して同じファジィ関係モデル R を使いたい場合、ファジィ関係モデルを比較したい時に便利なクラス。
  */
 public class RelationModelFactory {
     public static final int GODEL_MODEL=0;

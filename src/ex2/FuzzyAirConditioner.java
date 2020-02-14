@@ -96,7 +96,7 @@ public class FuzzyAirConditioner extends JFrame implements ChangeListener {
             e.printStackTrace();
         }
 
-        tCurrentTemp.setText("現在の気温: "+Double.toString(t)+" ℃");
+        tCurrentTemp.setText("現在の気温: "+ t +" ℃");
         double roundConsequent=Double.parseDouble(String.format("%.2f",consequent));
         StringBuilder consequentText=new StringBuilder();
         consequentText.append("空調設定 : ");

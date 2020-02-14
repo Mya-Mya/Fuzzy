@@ -7,10 +7,11 @@ import java.util.List;
 
 /**
  * 直説法ファジィ推論を提供する。
+ * 複数のファジィ制御則を管理し1つの結論値y∈Yを求める。
  */
 public class FuzzyInterface1 {
-    public static final int RULES_SUM_COMBINATION=0; //ルール同士をブール和算(MAX)で結合する
-    public static final int RULES_MULT_COMBINATION=1; //ルール同士をブール積算(MIN)で結合する
+    public static final int RULES_SUM_COMBINATION=0; //ファジィ制御則{R_i} i=1,..,N 同士をブール和算(MAX)で結合する
+    public static final int RULES_MULT_COMBINATION=1; //ファジィ制御則{R_i} i=1,..,N同士をブール積算(MIN)で結合する
 
     public class NoRuleException extends Exception{}
 
@@ -19,7 +20,7 @@ public class FuzzyInterface1 {
     private int rulesCombination;
 
     /**
-     * @param yValues 非ファジィ化時に用いる y 座標のリスト
+     * @param yValues 非ファジィ化時に用いるy∈Yのリスト
      * @param rulesCombination ルール同士の結合方法
      */
     public FuzzyInterface1(List<Double>yValues, int rulesCombination){
@@ -33,7 +34,7 @@ public class FuzzyInterface1 {
 
     /**
      * 入力値が変化した時に知らせること。
-     * 各ファジィ制御則の前件部の適合度ωを更新する。
+     * 各ファジィ制御則{R_i}の前件部の適合度ωを更新する。
      */
     public void inputValueChanged() throws Rule.NoAntecedentPartListException {
         for(Rule r:ruleList){
@@ -41,9 +42,9 @@ public class FuzzyInterface1 {
         }
     }
     /**time
-     * すべてのファジィ制御則の推論結果関数 μB*:Y->[0,1] を返す。
+     * 全てのファジィ制御則を結合した結論関数 μ_B*:Y->[0,1] を返す。
      * @param y∈Y
-     * @return 推論結果
+     * @return 適合度
      */
     public double getConsequentValue(double y) throws NoRuleException, Rule.NoAntecedentPartListException {
         if(ruleList.isEmpty())throw new NoRuleException();
@@ -60,9 +61,9 @@ public class FuzzyInterface1 {
     }
 
     /**
-     * 現在の入力値とファジィ制御則に基づいた結論を重心法を用いて返す。
+     * 現在の入力値とファジィ制御則に基づいた結論y∈Yを重心法を用いて返す。
      * このメソッドを呼ぶ前にinputValueChangedを呼ぶ必要がある。
-     * @return 結論y
+     * @return 結論値y∈Y
      */
     public double getConsequent() throws NoRuleException, Rule.NoAntecedentPartListException {
         double denominator=0;//ΣB0(y)y

@@ -61,7 +61,7 @@ public class FuzzyWindowModel {
         ファジィ制御則 {R i} i=1,..,8
         */
         //使用するファジィ関係モデル
-        RelationModelFactory relationModel=new RelationModelFactory(RelationModelFactory.MAMDAMI_MODEL);
+        RelationModelFactory relationModel=new RelationModelFactory(RelationModelFactory.MAMDANI_MODEL);
         //ファジィ制御則
         Rule R1=new Rule(new AntecedentThesis(temp,isSoCold),wannaCloseVeryMuch,relationModel.create());
         Rule R2=new Rule(new AntecedentThesis(temp,isCold),wannaClose,relationModel.create());

@@ -1,7 +1,7 @@
 package fuzzy.set;
 
 /**
- * ファジィ集合のスーパークラス。
+ * ファジィ集合 F のスーパークラス。
  */
 abstract public class FuzzySet {
     /**
