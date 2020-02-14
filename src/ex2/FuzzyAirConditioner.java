@@ -1,8 +1,8 @@
 package ex2;
 
 import fuzzy.*;
-import fuzzy.relationmodel.GodelModel;
-import fuzzy.relationmodel.MamdamiModel;
+import fuzzy.fuzzyinterface.FuzzyInterface1;
+import fuzzy.relationmodel.LukasiewiczModel;
 import fuzzy.set.FuzzySet;
 import fuzzy.set.TrapezoidFuzzySet;
 import fuzzy.set.TriangleFuzzySet;
@@ -43,18 +43,18 @@ public class FuzzyAirConditioner extends JFrame implements ChangeListener {
 
         FuzzySet A1=new TrapezoidFuzzySet(X,"暑い",24,30,40,40);
         FuzzySet B1=new TriangleFuzzySet(Y,"冷房にする",-7,-5,-2);
-        Rule R1=new Rule(B1,new GodelModel());
-        R1.addAntecedentPart(new AntecedentPart(x1,A1));
+        Rule R1=new Rule(B1,new LukasiewiczModel());
+        R1.addAntecedentPart(new AntecedentThesis(x1,A1));
 
         FuzzySet A2=new TrapezoidFuzzySet(X,"ちょうどよい",12,22,25,35);
         FuzzySet B2=new TriangleFuzzySet(Y,"だいたい何も変えない",-3,0,3);
-        Rule R2=new Rule(B2,new GodelModel());
-        R2.addAntecedentPart(new AntecedentPart(x1,A2));
+        Rule R2=new Rule(B2,new LukasiewiczModel());
+        R2.addAntecedentPart(new AntecedentThesis(x1,A2));
 
         FuzzySet A3=new TrapezoidFuzzySet(X,"寒い",0,0,9,18);
         FuzzySet B3=new TriangleFuzzySet(Y,"暖房にする",2,5,7);
-        Rule R3=new Rule(B3,new GodelModel());
-        R3.addAntecedentPart(new AntecedentPart(x1,A3));
+        Rule R3=new Rule(B3,new LukasiewiczModel());
+        R3.addAntecedentPart(new AntecedentThesis(x1,A3));
 
         List<Double>yList=new ArrayList<>();
         for(double y=-6;y<=6;y+=0.2){
