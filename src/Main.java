@@ -1,8 +1,8 @@
-import ex2.FuzzyAirConditioner;
+import ex3.FuzzyWindowView;
 
 public class Main {
 
     public static void main(String[] args) {
-        new FuzzyAirConditioner();
+        new FuzzyWindowView();
     }
 }

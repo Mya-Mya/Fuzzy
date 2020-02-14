@@ -3,7 +3,7 @@ package fuzzy;
 import fuzzy.set.FuzzySet;
 
 /**
- * 1つの前件部を表す。1つの入力値への参照 x と1つのファジィ集合 A から成り立つ。
+ * 1つの前件部のファジィ命題を表す。1つの入力値への参照 x と1つのファジィ集合 A から成り立つ。
  */
 public class AntecedentPart {
     private InputValue inputValue;
