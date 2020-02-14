@@ -6,7 +6,7 @@ import fuzzy.Rule;
  * Lukasiewicz のファジィ関係モデル
  * μR(x+,y) = 1 ∧ (1 - ω + μB(y))
  */
-public class Lukasiewicz extends RelationModel {
+public class LukasiewiczModel extends RelationModel {
     private double oneMinusAllAntecedentPartGoodness;
 
     @Override
