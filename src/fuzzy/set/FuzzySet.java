@@ -17,6 +17,11 @@ abstract public class FuzzySet {
         public boolean isIn(double x){
             return min<=x&&x<=max;
         }
+
+        @Override
+        public String toString() {
+            return "["+min+","+max+"]";
+        }
     }
 
     protected Range range;
@@ -30,7 +35,7 @@ abstract public class FuzzySet {
     }
 
     public double invokeMembershipFunction(double x){
-        if(!range.isIn(x))throw new IllegalArgumentException();
+        if(!range.isIn(x))throw new IllegalArgumentException("x="+x+"∉"+range.toString());
         double res=membershipFunction(x);
         if(res<0){
             System.err.println("FuzzySet "+description+" : membershipFunction("+x+")の値が不正です。");
