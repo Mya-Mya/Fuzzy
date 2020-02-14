@@ -7,6 +7,10 @@ public class InputValue {
     private double value;
     private String description;
     public InputValue(double value){
+        this("",value);
+    }
+    public InputValue(String description,double value){
+        setDescription(description);
         setValue(value);
     }
 
