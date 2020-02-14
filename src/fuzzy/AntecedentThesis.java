@@ -5,10 +5,10 @@ import fuzzy.set.FuzzySet;
 /**
  * 1つの前件部のファジィ命題を表す。1つの入力値への参照 x と1つのファジィ集合 A から成り立つ。
  */
-public class AntecedentPart {
+public class AntecedentThesis {
     private InputValue inputValue;
     private FuzzySet fuzzySet;
-    public AntecedentPart(InputValue inputValue, FuzzySet fuzzySet){
+    public AntecedentThesis(InputValue inputValue, FuzzySet fuzzySet){
         this.inputValue=inputValue;
         this.fuzzySet = fuzzySet;
     }
